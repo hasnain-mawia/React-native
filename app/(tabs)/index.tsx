@@ -3,6 +3,8 @@ import { CameraView, CameraType, useCameraPermissions } from 'expo-camera';
 import { useRef, useState } from 'react';
 import { Button, Text, TouchableOpacity, View } from 'react-native';
 import styles from '../../styles/dashboard-style';
+import { ScrollView } from 'react-native';
+// import * as Icon from "react-native-feather";
 
 export default function HomeScreen() {
   const camera = useRef<any>(null);
@@ -47,20 +49,27 @@ export default function HomeScreen() {
             <Text className='bg-white px-2 py-1 rounded-2xl '>Flip Camera</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={takepicture}>
-            <Text className='bg-white px-2 py-1 rounded-2xl '>Capture</Text>
+            <Text className='bg-white px-2 py-1 rounded-2xl '>
+              {/* <Icon.camera stroke="red" fill="#fff" width={32} height={32} /> */}
+              Camera
+            </Text>
           </TouchableOpacity>
         </View>
       </CameraView>
 
-      <View className='absolute top-10 right-5 p-2 flex space-y-2'>
-        {Gallery.map((img: any, index: number) => {
-          return <View key={index} className='flex gap-2 relative'>
-            <TouchableOpacity className='bg-[#fa1919] absolute top-0 right-0 z-50 w-[30px] h-[30px] flex-1 justify-center items-center rounded-[30px]' onPress={() => dltPicture(index)}><Text className='text-white text-[20px]'>x</Text></TouchableOpacity>
-            <Image source={{ uri: img?.uri }} style={{ width: 100, height: 100 }} />
-          </View>
-        })
-        }
+      {/* <View className='absolute top-10 right-5 p-2 flex space-y-2'> */}
+      <View >
+        <ScrollView horizontal showsHorizontalScrollIndicator={true} className='overflow-hidden py-3'>
 
+          {Gallery.map((img: any, index: number) => {
+            return <View key={index} className='flex gap-2 relative space-x-5'>
+              <TouchableOpacity className='bg-[#fa1919] absolute top-0 right-0 z-50 w-[30px] h-[30px] flex-1 justify-center items-center rounded-[30px]' onPress={() => dltPicture(index)}><Text className='text-white text-[20px]'>x</Text></TouchableOpacity>
+              <Image source={{ uri: img?.uri }} style={{ width: 100, height: 100 }} />
+            </View>
+          })
+          }
+
+        </ScrollView>
       </View>
     </View >
 
